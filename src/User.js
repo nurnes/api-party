@@ -11,13 +11,20 @@ class User extends Component {
             html_url: ''
         }
     }
-    constructor(props){
-        super(props)
-        this.fetchData()
+
+    componentWillMount = () => {
+        this.fetchData(this.props)
     }
 
-    fetchData(){
-        fetch(`https://api.github.com/users/${this.props.match.params.user}`)
+    componentWillReceiveProps(nextProps){
+        const locationChanged = nextProps.location !== this.props.location;
+        if(locationChanged){
+            this.fetchData(nextProps)
+        }
+    }
+
+    fetchData(props){
+        fetch(`https://api.github.com/users/${props.match.params.user}`)
             .then(response => response.json())
             .then(user => this.setState({ user }))
     }
