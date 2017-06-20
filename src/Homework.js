@@ -1,23 +1,37 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {Route} from 'react-router-dom'
 import './Homework.css'
+import Zip from './Zip'
 
-function Homework(props) {
-  return (
-    <div className="homework">
-      <h2>And now... <em>your</em> turn!</h2>
-      <p>You've seen a couple examples of how to Route to new pages and fetch data from an API.</p>
-      <p>Your assignment, should you choose to accept it (and you should), is to add some more routes to the API Party and fetch data from your favorite APIs.  The API you choose is up to you, but be sure to get some data and try to display it in a visually-pleasing way.</p>
-      <p>In case you don't have a favorite API, here are some suggestions:</p>
+class Homework extends Component {
+  state = {
+    zipCode: ''
+  }
 
-      <ul>
-        <li><a href="https://developers.google.com/maps/">Google Maps (https://developers.google.com/maps)</a></li>
-        <li><a href="https://pokeapi.co">The Pokéapi (https://pokeapi.co)</a></li>
-        <li><a href="https://openweathermap.org/api">OpenWeatherMap (https://openweathermap.org/api)</a></li>
-        <li><a href="https://developer.spotify.com/web-api/">Spotify (https://developer.spotify.com/web-api/)</a></li>
-      </ul>
-
-    </div>
-  )
+  handleChange = (ev) => {
+        const zipCode = ev.currentTarget.value
+        this.setState({ zipCode })
+    }
+  
+  handleSubmit = (ev) => {
+        ev.preventDefault()
+        this.props.history.push(`/dierbergs/${this.state.zipCode}`)
+    }
+  
+  render() {
+    return (
+      <div className="homework">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/e/e6/Dierbergs-Logo.jpg" alt="Dierbergs logo" />
+                  <form onSubmit={this.handleSubmit}>
+                      <input type="text" placeholder="Hint: 63017" value={this.state.zipCode} onChange={this.handleChange} />
+                      <button type="submit">Search Zip Code</button>
+                  </form>
+                  <Route exact path='/dierbergs' render={() => <h3>Please enter a zip code in the United States. </h3>} />
+                  <Route path='/dierbergs/:zipCode' component={Zip} />
+              </div>
+    )
+  }
 }
 
 export default Homework
+

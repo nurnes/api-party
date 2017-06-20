@@ -23,14 +23,14 @@ class App extends Component {
                 <NavLink to='/nasa'>NASA API</NavLink>
               </li>
               <li>
-                <NavLink to='/homework'>Homework</NavLink>
+                <NavLink to='/dierbergs'>Dierbergs Finder</NavLink>
               </li>
             </ul>
           </div>
           <Switch>
             <Route path='/github' component={Github} />
             <Route path='/nasa' component={Nasa} />
-            <Route path='/homework' component={Homework} />
+            <Route path='/dierbergs' component={Homework} />
             <Route render={() => <p>To get started, click one of the links above</p>} />
           </Switch>
         </div>
